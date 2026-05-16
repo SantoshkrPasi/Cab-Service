@@ -2,6 +2,7 @@ package com.service.cab.controller;
 
 import java.util.List;
 
+import com.service.cab.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -64,13 +65,30 @@ public class UserController {
 		return new ResponseEntity<String>(Constants.OTP_NOT_VERIFIED, HttpStatus.BAD_REQUEST);
 	}
 	
-	@PostMapping("/login")
-	public ResponseEntity<String>login(@RequestBody UserDto userDto){
-		if(userService.login(userDto))
-			return new ResponseEntity<String>(Constants.LOGIN_SUCCESSFUL, HttpStatus.OK);
-		
-		return new ResponseEntity<String>(Constants.LOGIN_UNSUCCESSFUL, HttpStatus.BAD_REQUEST);
-	}
+//	@PostMapping("/login")
+//	public ResponseEntity<String>login(@RequestBody UserDto userDto){
+//		if(userService.login(userDto))
+//			return new ResponseEntity<String>(Constants.LOGIN_SUCCESSFUL, HttpStatus.OK);
+//
+//		return new ResponseEntity<String>(Constants.LOGIN_UNSUCCESSFUL, HttpStatus.BAD_REQUEST);
+//	}
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody UserDto userDto){
+
+        UserEntity user = userService.getUser(userDto);
+
+        if(user != null){
+            return ResponseEntity.ok().body(
+                    java.util.Map.of(
+                            "message", "Login Successful",
+                            "userId", user.getId()
+                    )
+            );
+        }
+
+        return new ResponseEntity<>("Login Unsuccessful", HttpStatus.BAD_REQUEST);
+    }
 	
 	@PostMapping("/forgot-password")
 	public ResponseEntity<String>forgotPassword(@RequestParam String email, @RequestParam String password){
@@ -84,4 +102,12 @@ public class UserController {
 	public ResponseEntity<List<Trips>>listOfTrips(@PathVariable Long userId){
 		return new ResponseEntity<List<Trips>>(userService.getAllTripsDetails(userId),HttpStatus.OK);
 	}
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserEntity>> getAllUsers() {
+        return new ResponseEntity<>(
+                userService.getAllUsers(),
+                HttpStatus.OK
+        );
+    }
 }

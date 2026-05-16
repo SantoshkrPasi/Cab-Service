@@ -1,5 +1,6 @@
 package com.service.cab.controller;
 
+import com.service.cab.entity.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.service.cab.dto.TripsDto;
 import com.service.cab.service.TripsService;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -44,4 +47,13 @@ public class TripsController {
 		}
 		return new ResponseEntity<String>("Trips details cannot be fetched!",HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+
+    @GetMapping("/trips")
+    public ResponseEntity<List<TripsDto>> getAllTrips() {
+        List<TripsDto> trips = tripsService.getAllTrips();
+        return new ResponseEntity<>(
+                trips,
+                HttpStatus.OK
+        );
+    }
 }

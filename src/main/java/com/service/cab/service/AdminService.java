@@ -7,5 +7,4 @@ public interface AdminService {
 	boolean register(AdminDto adminDto);
 	boolean login(AdminDto adminDto);
 	boolean forgotPassword(String email, String password);
-
 }

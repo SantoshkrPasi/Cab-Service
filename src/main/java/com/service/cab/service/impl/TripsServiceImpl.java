@@ -20,6 +20,9 @@ import com.service.cab.util.DistanceMatrixResponse;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+
+import java.util.List;
+
 @Service
 public class TripsServiceImpl implements TripsService{
 	
@@ -94,4 +97,14 @@ public class TripsServiceImpl implements TripsService{
 				                             .orElseThrow(()-> new ResourceNotFoundException("User not found with id" + userId));
 		return modelMapper.map(savedUser.getTrips(),TripsDto.class);
 	}
+
+    @Override
+    public List<TripsDto> getAllTrips() {
+
+        List<Trips> trips = tripsRepository.findAll();
+        return trips.stream()
+                .map(trip -> modelMapper.map(trip, TripsDto.class))
+                .toList();
+    }
+
 }

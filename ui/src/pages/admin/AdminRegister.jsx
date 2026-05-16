@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/axios";
-import "../user/styles/register.css";
+import "./adminRegister.css";
 
 function AdminRegister() {
 

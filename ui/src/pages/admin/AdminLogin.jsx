@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/axios";
-import "../user/styles/login.css";
+import "./adminLogin.css";
 
 function AdminLogin() {
 
@@ -64,7 +64,6 @@ function AdminLogin() {
       );
 
     } finally {
-
       setLoading(false);
     }
   };

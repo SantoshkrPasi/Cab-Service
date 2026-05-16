@@ -5,6 +5,8 @@ import UserDashboard from "../pages/user/UserDashboard";
 import AdminRegister from "../pages/admin/AdminRegister";
 import AdminLogin from "../pages/admin/AdminLogin";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import ForgotPassword from "../pages/user/ForgotPassword";
+import AdminForgotPassword from "../pages/admin/AdminForgotPassword";
 
 const AppRoutes = () => {
   return (
@@ -15,6 +17,7 @@ const AppRoutes = () => {
 
         {/* User Register */}
         <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
         {/* Optional: Login route explicitly */}
         <Route path="/login" element={<Login />} />
@@ -23,6 +26,8 @@ const AppRoutes = () => {
         <Route path="/admin/register" element={<AdminRegister />}/>
         <Route path="/admin/login" element={<AdminLogin />}/>
         <Route path="/admin/dashboard" element={<AdminDashboard />}/>
+        <Route path="/admin/forgot-password" element={<AdminForgotPassword />}/>
+
       </Routes>
     </BrowserRouter>
   );

@@ -50,18 +50,34 @@ public class UserServiceImpl implements UserService{
 			throw new ResourceNotFoundException("User does not exist with this email id!");
         return passwordEncoder.matches(userDto.getPassword(), savedUser.getPassword());
     }
+//New method Created
+@Override
+public UserEntity getUser(UserDto userDto) {
+
+    UserEntity savedUser = userRepository.findByEmail(userDto.getEmail());
+
+    if(savedUser == null)
+        throw new ResourceNotFoundException("User does not exist with this email id!");
+
+    if(passwordEncoder.matches(userDto.getPassword(), savedUser.getPassword())) {
+        return savedUser;
+    }
+
+    return null;
+}
 
 	@Override
 	public boolean forgotPassword(String email, String password) {
 		UserEntity savedUser = userRepository.findByEmail(email);
 		if(savedUser!=null) {
-			otpSenderAndVerificator.sendOtpToEmail(email);
-		}
-		if(otpSenderAndVerificator.verifyOtpEmail(email, OTPSenderAndVerificator.getEmailVsOtp().get(email))) {
-			savedUser.setPassword(passwordEncoder.encode(password));
-			userRepository.save(savedUser);
-			return true;
-		}	
+            //	otpSenderAndVerificator.sendOtpToEmail(email);
+
+            //if (otpSenderAndVerificator.verifyOtpEmail(email, OTPSenderAndVerificator.getEmailVsOtp().get(email))) {
+                savedUser.setPassword(passwordEncoder.encode(password));
+                userRepository.save(savedUser);
+                return true;
+        //    }
+        }
 		return false;
 	}
 
@@ -74,5 +90,10 @@ public class UserServiceImpl implements UserService{
 		
 		throw new ResourceNotFoundException("No details found!");
 	}
+
+    @Override
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
+    }
 
 }

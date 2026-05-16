@@ -41,7 +41,6 @@ public class AdminServiceImpl implements AdminService{
 				throw new InvalidDataException("Admin Code is not valid");
 		}
 		return false;
-		
 	}
 
 	@Override

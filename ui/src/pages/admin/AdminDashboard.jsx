@@ -13,6 +13,11 @@ function AdminDashboard() {
   const admin = JSON.parse(localStorage.getItem("admin"));
   console.log("Admin Data:", admin);
 
+  const totalRevenue = trips.reduce(
+    (sum, trip) => sum + Number(trip.amount || 0),
+    0
+  );
+
   // Logout
   const handleLogout = () => {
     localStorage.removeItem("admin");
@@ -36,13 +41,8 @@ function AdminDashboard() {
   // Fetch Trips
   const fetchTrips = async () => {
     try {
-
-      const userId = localStorage.getItem("userId");
-
-      const response = await API.get(
-        `/${userId}/trips-list`
-      );
-
+      const response = await API.get(`/trips` );
+       console.log( "trips data : " + response.data);
       setTrips(response.data);
 
     } catch (err) {
@@ -134,21 +134,9 @@ function AdminDashboard() {
           </div>
 
           <div className="card">
-
-            <h3>Total Bookings</h3>
-
-            <p>25</p>
-
-          </div>
-
-          <div className="card">
-
             <h3>Total Revenue</h3>
-
-            <p>₹75,000</p>
-
+         <p> ₹{totalRevenue}</p>
           </div>
-
         </div>
 
         {/* Users Table */}
@@ -157,17 +145,11 @@ function AdminDashboard() {
           <h3>Users List</h3>
 
           <table>
-
             <thead>
-
               <tr>
-
-                <th>ID</th>
                 <th>Name</th>
                 <th>Email</th>
-
               </tr>
-
             </thead>
 
             <tbody>
@@ -175,8 +157,6 @@ function AdminDashboard() {
               {users.map((user) => (
 
                 <tr key={user.id}>
-
-                  <td>{user.id}</td>
 
                   <td>
                     {user.firstName} {user.lastName}
@@ -205,7 +185,7 @@ function AdminDashboard() {
 
               <tr>
 
-                <th>ID</th>
+
                 <th>Source</th>
                 <th>Destination</th>
                 <th>Fare</th>
@@ -220,13 +200,11 @@ function AdminDashboard() {
 
                 <tr key={trip.id}>
 
-                  <td>{trip.id}</td>
-
-                  <td>{trip.source}</td>
+                  <td>{trip.origin}</td>
 
                   <td>{trip.destination}</td>
 
-                  <td>₹{trip.fare}</td>
+                  <td>₹{trip.amount}</td>
 
                 </tr>
 

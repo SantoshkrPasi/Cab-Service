@@ -50,6 +50,7 @@ public class OTPSenderAndVerificator {
 	public String sendOtpToEmail(String email) {
 		
 		String otp = otpGenerator.generateOTP(OTP_LENGHT);
+        System.out.println("Email Generated OTP: " + otp);
 		try {
 			otpGenerator.sendOTPByEmail(email, otp);
 		} 
@@ -78,6 +79,7 @@ public class OTPSenderAndVerificator {
 	public String sendOtpToMobile(String mobileNo) {
 		try {
 	            String otp = otpGenerator.generateOTP(OTP_LENGHT);
+                System.out.println("Mobile Generated OTP: " + otp);
 	            String requestBody = "variables_values=" + otp + "&route=otp&numbers="+mobileNo;
 	            CloseableHttpClient httpClient = HttpClients.createDefault();
 	            HttpPost httpPost = new HttpPost(API_URL);
