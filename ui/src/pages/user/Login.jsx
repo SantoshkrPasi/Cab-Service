@@ -1,7 +1,7 @@
 import { useState } from "react";
 import API from '../../api/axios';
 import { useNavigate } from "react-router-dom";
-import "./styles.css";
+import "./styles/login.css";
 
 function Login() {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ function Login() {
       setLoading(true);
 
       const response = await API.post("/login", form);
-
+      localStorage.setItem("userId", response.data.userId);
       alert(response.data || "Login successful ✅");
 
       // Redirect after login
@@ -46,8 +46,8 @@ function Login() {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-card">
+    <div className="login-container">
+      <div className="login-card">
         <h2>Login</h2>
 
         <input

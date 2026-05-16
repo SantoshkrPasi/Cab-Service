@@ -1,9 +1,10 @@
 import { useState } from "react";
-import API from '../../api/axios';
 import { useNavigate } from "react-router-dom";
-import './styles/register.css';
+import API from "../../api/axios";
+import "../user/styles/register.css";
 
-function Register() {
+function AdminRegister() {
+
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -13,99 +14,164 @@ function Register() {
     mobileNo: "",
     gender: "",
     password: "",
+    adminCode: "",
   });
 
   const [loading, setLoading] = useState(false);
 
-  // Handle input change
+  // Handle Input Change
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
 
-  // Handle register
+  // Handle Register
   const handleRegister = async () => {
-    // Basic validation
+
+    // Validation
     if (
       !form.firstName ||
       !form.lastName ||
       !form.email ||
       !form.mobileNo ||
       !form.gender ||
-      !form.password
+      !form.password ||
+      !form.adminCode
     ) {
       alert("Please fill all fields");
       return;
     }
 
     try {
-      setLoading(true);
-      await API.post("/register", form);
-      alert("Registered successfully ✅");
 
-      // Redirect to login
-      navigate("/login");
+      setLoading(true);
+
+      const response = await API.post(
+        "/admin/register",
+        form
+      );
+
+      alert(response.data || "Admin Registered Successfully ✅");
+
+      // Redirect to Admin Login
+      navigate("/admin/login");
+
     } catch (err) {
+
       console.error(err);
-      alert("Registration failed ❌");
+
+      if (err.response?.data) {
+        alert(err.response.data);
+      } else {
+        alert("Admin Registration Failed ❌");
+      }
+
     } finally {
+
       setLoading(false);
     }
   };
 
   return (
     <div className="register-container">
-      <div className="register-card">
-        <h2>Create Account</h2>
 
+      <div className="register-card">
+
+        <h2>Admin Register</h2>
+
+        {/* First Name + Last Name */}
         <div className="input-group">
+
           <input
+            type="text"
             name="firstName"
             placeholder="First Name"
+            value={form.firstName}
             onChange={handleChange}
           />
+
           <input
+            type="text"
             name="lastName"
             placeholder="Last Name"
+            value={form.lastName}
             onChange={handleChange}
           />
+
         </div>
 
+        {/* Email */}
         <input
+          type="email"
           name="email"
           placeholder="Email"
+          value={form.email}
           onChange={handleChange}
         />
 
+        {/* Mobile Number */}
         <input
+          type="text"
           name="mobileNo"
           placeholder="Mobile Number"
+          value={form.mobileNo}
           onChange={handleChange}
         />
 
-        <select name="gender" onChange={handleChange}>
+        {/* Gender */}
+        <select
+          name="gender"
+          value={form.gender}
+          onChange={handleChange}
+        >
           <option value="">Select Gender</option>
           <option value="MALE">Male</option>
           <option value="FEMALE">Female</option>
         </select>
 
+        {/* Admin Code */}
+        <input
+          type="text"
+          name="adminCode"
+          placeholder="Enter Admin Code"
+          value={form.adminCode}
+          onChange={handleChange}
+        />
+
+        {/* Password */}
         <input
           type="password"
           name="password"
           placeholder="Password"
+          value={form.password}
           onChange={handleChange}
         />
 
-        <button onClick={handleRegister} disabled={loading}>
+        {/* Register Button */}
+        <button
+          onClick={handleRegister}
+          disabled={loading}
+        >
           {loading ? "Registering..." : "Register"}
         </button>
 
+        {/* Login Link */}
         <p className="login-link">
-          Already have an account?{" "}
-          <span onClick={() => navigate("/login")}>Login</span>
+
+          Already have an admin account?{" "}
+
+          <span onClick={() => navigate("/admin/login")}>
+            Login
+          </span>
+
         </p>
+
       </div>
+
     </div>
   );
 }
 
-export default Register;
+export default AdminRegister;
