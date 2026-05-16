@@ -1,10 +1,3 @@
-/* GLOBAL */
-body {
-  margin: 0;
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
-  font-family: "Poppins", sans-serif;
-}
-
 /* DASHBOARD WRAPPER */
 .dashboard {
   padding: 30px;

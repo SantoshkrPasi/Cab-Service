@@ -74,7 +74,7 @@ const UserDashboard = () => {
     <div className="dashboard">
 
       {/* HEADER */}
-      <div className="header">
+      <div className="dashboard-header">
         <h2>🚖 Cab Booking Dashboard</h2>
         <button className="logout-btn" onClick={handleLogout}>
           Logout
@@ -82,7 +82,7 @@ const UserDashboard = () => {
       </div>
 
       {/* BOOKING SECTION */}
-      <div className="card booking-card">
+      <div className="dashboard-card">
         <h3>Book Your Ride</h3>
 
         <div className="form-grid">

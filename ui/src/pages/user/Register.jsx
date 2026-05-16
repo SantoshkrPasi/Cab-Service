@@ -1,6 +1,7 @@
 import { useState } from "react";
 import API from '../../api/axios';
 import { useNavigate } from "react-router-dom";
+import taxiImage from "../../assets/img.png";
 import './styles/register.css';
 
 function Register() {
@@ -53,8 +54,26 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-card">
+    <div className="container" style={{ backgroundImage: `url(${taxiImage})`,}}>
+        {/* LEFT INFO SECTION */}
+          <div className="info-section">
+
+            <h1>Join Our Taxi Service 🚖</h1>
+
+            <p>
+              Book rides instantly, travel safely, and enjoy affordable pricing across the city.
+            </p>
+
+            <ul>
+              <li>✔ Fast & reliable booking</li>
+              <li>✔ Safe verified drivers</li>
+              <li>✔ Affordable pricing</li>
+              <li>✔ 24/7 service support</li>
+            </ul>
+
+          </div>
+       {/*Right Section*/}
+      <div className="card">
         <h2>Create Account</h2>
 
         <div className="input-group">
@@ -99,8 +118,8 @@ function Register() {
           {loading ? "Registering..." : "Register"}
         </button>
 
-        <p className="login-link">
-          Already have an account?{" "}
+        <p className="register-link-btn">
+          <p> Already have an account?{" "}</p>
           <span onClick={() => navigate("/login")}>Login</span>
         </p>
       </div>
