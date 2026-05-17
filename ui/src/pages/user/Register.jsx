@@ -1,8 +1,8 @@
 import { useState } from "react";
-import API from '../../api/axios';
+import API from "../../api/axios";
 import { useNavigate } from "react-router-dom";
-import taxiImage from "../../assets/img.png";
-import './styles/register.css';
+import Img from "../../assets/userRegister/img.png";
+import "../../styles/style.css";
 
 function Register() {
   const navigate = useNavigate();
@@ -54,74 +54,76 @@ function Register() {
   };
 
   return (
-    <div className="container" style={{ backgroundImage: `url(${taxiImage})`,}}>
+    <div
+      className="login-container"
+      style={{
+        backgroundImage: `url(${Img})`,
+      }}
+    >
+      <div className="login-content">
         {/* LEFT INFO SECTION */}
-          <div className="info-section">
+        <div className="left-section">
+          <h1>Join Our Taxi Service 🚖</h1>
 
-            <h1>Join Our Taxi Service 🚖</h1>
+          <p>
+            Book rides instantly, travel safely, and enjoy affordable pricing
+            across the city.
+          </p>
 
-            <p>
-              Book rides instantly, travel safely, and enjoy affordable pricing across the city.
-            </p>
-
-            <ul>
-              <li>✔ Fast & reliable booking</li>
-              <li>✔ Safe verified drivers</li>
-              <li>✔ Affordable pricing</li>
-              <li>✔ 24/7 service support</li>
-            </ul>
-
-          </div>
-       {/*Right Section*/}
-      <div className="card">
-        <h2>Create Account</h2>
-
-        <div className="input-group">
-          <input
-            name="firstName"
-            placeholder="First Name"
-            onChange={handleChange}
-          />
-          <input
-            name="lastName"
-            placeholder="Last Name"
-            onChange={handleChange}
-          />
+          <ul>
+            <li>✔ Fast & reliable booking</li>
+            <li>✔ Safe verified drivers</li>
+            <li>✔ Affordable pricing</li>
+            <li>✔ 24/7 service support</li>
+          </ul>
         </div>
+        {/*Right Section*/}
+        <div className="right-section">
+          <div className="login-card">
+            <h2>Create Account</h2>
+            <input
+              name="firstName"
+              placeholder="First Name"
+              onChange={handleChange}
+            />
+            <input
+              name="lastName"
+              placeholder="Last Name"
+              onChange={handleChange}
+            />
 
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-        />
+            <input name="email" placeholder="Email" onChange={handleChange} />
 
-        <input
-          name="mobileNo"
-          placeholder="Mobile Number"
-          onChange={handleChange}
-        />
+            <input
+              name="mobileNo"
+              placeholder="Mobile Number"
+              onChange={handleChange}
+            />
 
-        <select name="gender" onChange={handleChange}>
-          <option value="">Select Gender</option>
-          <option value="MALE">Male</option>
-          <option value="FEMALE">Female</option>
-        </select>
+            <select className="gender-select" name="gender" onChange={handleChange}>
+              <option value="">Select Gender</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="Other">Other</option>
+            </select>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+            />
 
-        <button onClick={handleRegister} disabled={loading}>
-          {loading ? "Registering..." : "Register"}
-        </button>
+            <button onClick={handleRegister} disabled={loading}>
+              {loading ? "Registering..." : "Register"}
+            </button>
 
-        <p className="register-link-btn">
-          <p> Already have an account?{" "}</p>
-          <span onClick={() => navigate("/login")}>Login</span>
-        </p>
+            <p className="login-link">
+              <p> Already have an account? </p>
+              <span onClick={() => navigate("/login")}>Login</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

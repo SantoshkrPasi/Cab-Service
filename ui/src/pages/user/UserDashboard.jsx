@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { bookTrip, getTrips } from "../../api/tripsApi";
-import "./styles/userDashboard.css";
 
 const UserDashboard = () => {
 

@@ -1,7 +1,6 @@
 import { useState } from "react";
 import API from "../../api/axios";
 import { useNavigate } from "react-router-dom";
-import "./forgotpassword.css";
 
 function AdminForgotPassword() {
 

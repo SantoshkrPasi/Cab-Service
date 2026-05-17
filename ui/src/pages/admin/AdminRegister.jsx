@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../../api/axios";
-import "./adminRegister.css";
+import Img from "../../assets/adminRegister/img.png";
+import "../../styles/style.css";
 
 function AdminRegister() {
-
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -29,7 +29,6 @@ function AdminRegister() {
 
   // Handle Register
   const handleRegister = async () => {
-
     // Validation
     if (
       !form.firstName ||
@@ -45,21 +44,15 @@ function AdminRegister() {
     }
 
     try {
-
       setLoading(true);
 
-      const response = await API.post(
-        "/admin/register",
-        form
-      );
+      const response = await API.post("/admin/register", form);
 
       alert(response.data || "Admin Registered Successfully ✅");
 
       // Redirect to Admin Login
       navigate("/admin/login");
-
     } catch (err) {
-
       console.error(err);
 
       if (err.response?.data) {
@@ -67,110 +60,115 @@ function AdminRegister() {
       } else {
         alert("Admin Registration Failed ❌");
       }
-
     } finally {
-
       setLoading(false);
     }
   };
 
   return (
-    <div className="register-container">
+    <div
+      className="login-container"
+      style={{
+        backgroundImage: `url(${Img})`,
+      }}
+    >
+      <div className="login-content">
+        <div className="left-section">
+          <h1>Join Our Taxi Service 🚖</h1>
 
-      <div className="register-card">
+          <p>
+            Book rides instantly, travel safely, and enjoy affordable pricing
+            across the city.
+          </p>
 
-        <h2>Admin Register</h2>
-
-        {/* First Name + Last Name */}
-        <div className="input-group">
-
-          <input
-            type="text"
-            name="firstName"
-            placeholder="First Name"
-            value={form.firstName}
-            onChange={handleChange}
-          />
-
-          <input
-            type="text"
-            name="lastName"
-            placeholder="Last Name"
-            value={form.lastName}
-            onChange={handleChange}
-          />
-
+          <ul>
+            <li>✔ Fast & reliable booking</li>
+            <li>✔ Safe verified drivers</li>
+            <li>✔ Affordable pricing</li>
+            <li>✔ 24/7 service support</li>
+          </ul>
         </div>
+        {/* LEFT INFO SECTION */}
+        <div className="right-section">
+          <div className="login-card">
+          <h2>Admin Register</h2>
 
-        {/* Email */}
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={handleChange}
-        />
+          {/* First Name + Last Name */}
+          <div className="input-group">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First Name"
+              value={form.firstName}
+              onChange={handleChange}
+            />
 
-        {/* Mobile Number */}
-        <input
-          type="text"
-          name="mobileNo"
-          placeholder="Mobile Number"
-          value={form.mobileNo}
-          onChange={handleChange}
-        />
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last Name"
+              value={form.lastName}
+              onChange={handleChange}
+            />
+          </div>
 
-        {/* Gender */}
-        <select
-          name="gender"
-          value={form.gender}
-          onChange={handleChange}
-        >
-          <option value="">Select Gender</option>
-          <option value="MALE">Male</option>
-          <option value="FEMALE">Female</option>
-        </select>
+          {/* Email */}
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={handleChange}
+          />
 
-        {/* Admin Code */}
-        <input
-          type="text"
-          name="adminCode"
-          placeholder="Enter Admin Code"
-          value={form.adminCode}
-          onChange={handleChange}
-        />
+          {/* Mobile Number */}
+          <input
+            type="text"
+            name="mobileNo"
+            placeholder="Mobile Number"
+            value={form.mobileNo}
+            onChange={handleChange}
+          />
 
-        {/* Password */}
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={handleChange}
-        />
+          {/* Gender */}
+          <select className="gender-select" name="gender" value={form.gender} onChange={handleChange}>
+            <option value="">Select Gender</option>
+            <option value="MALE">Male</option>
+            <option value="FEMALE">Female</option>
+          </select>
 
-        {/* Register Button */}
-        <button
-          onClick={handleRegister}
-          disabled={loading}
-        >
-          {loading ? "Registering..." : "Register"}
-        </button>
+          {/* Admin Code */}
+          <input
+            type="text"
+            name="adminCode"
+            placeholder="Enter Admin Code"
+            value={form.adminCode}
+            onChange={handleChange}
+          />
 
-        {/* Login Link */}
-        <p className="login-link">
+          {/* Password */}
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={handleChange}
+          />
 
-          Already have an admin account?{" "}
+          {/* Register Button */}
+          <button onClick={handleRegister} disabled={loading}>
+            {loading ? "Registering..." : "Register"}
+          </button>
 
-          <span onClick={() => navigate("/admin/login")}>
-            Login
-          </span>
-
-        </p>
-
+          {/* Login Link */}
+          <p className="login-link">
+            Already have an admin account?{" "}
+            <span onClick={() => navigate("/admin/login")}>Login</span>
+          </p>
+        </div>
+        </div>
+       </div> 
       </div>
-
-    </div>
   );
 }
 

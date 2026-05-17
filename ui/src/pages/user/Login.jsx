@@ -1,21 +1,18 @@
-import { useState } from "react";
+import { useState , useEffect} from "react";
 import API from "../../api/axios";
 import { useNavigate } from "react-router-dom";
+import Img1 from "../../assets/userlogin/img_1.png";
+import Img2 from "../../assets/userlogin/img_2.png";
+import Img3 from "../../assets/userlogin/img.png";
 
-import taxiImage from "../../assets/taxi.png";
-
-import "./styles/login.css";
+import "../../styles/style.css";
 
 function Login() {
-
   const navigate = useNavigate();
-
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  const [loading, setLoading] = useState(false);
 
   // Handle input change
   const handleChange = (e) => {
@@ -25,9 +22,9 @@ function Login() {
     });
   };
 
+  const [loading, setLoading] = useState(false);
   // Handle login
   const handleLogin = async () => {
-
     // Validation
     if (!form.email || !form.password) {
       alert("Please fill all fields");
@@ -35,83 +32,92 @@ function Login() {
     }
 
     try {
-
       setLoading(true);
 
-      const response = await API.post(
-        "/login",
-        form
-      );
+      const response = await API.post("/login", form);
 
       // Save userId
-      localStorage.setItem(
-        "userId",
-        response.data.userId
-      );
+      localStorage.setItem("userId", response.data.userId);
 
-      alert(
-        response.data.message ||
-        "Login Successful ✅"
-      );
+      alert(response.data.message || "Login Successful ✅");
 
       // Navigate to dashboard
       navigate("/dashboard");
-
     } catch (err) {
-
       console.error(err);
 
-      alert(
-        err?.response?.data ||
-        "Login failed ❌"
-      );
-
+      alert(err?.response?.data || "Login failed ❌");
     } finally {
-
       setLoading(false);
-
     }
   };
 
-  return (
+   const slides = [
+    {
+      image: Img1,
+      welcome: "WELCOME TO TAXI SERVICE",
+      title: "Fast & Affordable Taxi Service",
+      description: "Book your cab instantly and travel safely.",
+    },
 
+    {
+      image: Img2,
+      welcome: "SAFE JOURNEY",
+      title: "Travel Comfortably Anytime",
+      description: "Reliable taxi service across the city.",
+    },
+
+    {
+      image: Img3,
+      welcome: "24/7 AVAILABLE",
+      title: "Best Cab Service For You",
+      description: "Easy booking with secure rides.",
+    },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+
+    const interval = setInterval(() => {
+
+      setCurrentIndex((prev) =>
+        prev === slides.length - 1 ? 0 : prev + 1
+      );
+
+    }, 7000);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
+
+  return (
     <div
-      className="login-page"
+      className="login-container"
       style={{
-        backgroundImage: `url(${taxiImage})`,
+        backgroundImage: `url(${slides[currentIndex].image})`,
       }}
     >
-
       {/* CONTENT */}
       <div className="login-content">
-
         {/* LEFT SECTION */}
-        <div className="left-section">
-
-          <p className="welcome-text">
-            WELCOME TO TAXI SERVICE
-          </p>
+        <div  key={currentIndex} className="left-section">
+          <p className="welcome-text">{slides[currentIndex].welcome}</p>
 
           <h1>
-            Fast & Affordable <br />
-            Taxi Service!
+            {slides[currentIndex].title}
           </h1>
 
           <p className="description">
-            Book your cab instantly and travel safely
-            with our reliable taxi service across the city.
+             {slides[currentIndex].description}
           </p>
-
         </div>
 
         {/* RIGHT SECTION */}
         <div className="right-section">
-
           <div className="login-card">
-
-            <h2 style={{
-                  color: "rgba(20,25,25,0.8)",
-                }}>Login</h2>
+            <h2> Login </h2>
 
             {/* EMAIL */}
             <input
@@ -132,54 +138,28 @@ function Login() {
             />
 
             {/* LOGIN BUTTON */}
-            <button
-              onClick={handleLogin}
-              disabled={loading}
-              style={{
-                background: "rgba(255,255,255,0.12)",
-                color: "white",
-                border: "1px solid rgba(255,255,255,0.2)",
-                backdropFilter: "blur(10px)",
-                borderRadius: "12px"
-              }}
-            >
-              {
-                loading
-                  ? "Logging in..."
-                  : "Login"
-              }
+            <button onClick={handleLogin} disabled={loading}>
+              {loading ? "Logging in..." : "Login"}
             </button>
 
             {/* REGISTER */}
-            <p className="login-link">
-              Don’t have an account?{" "}
-              <span
-                onClick={() =>
-                  navigate("/register")
-                }
-              >
-                Register
-              </span>
-            </p>
+            <div className="login-link">
+              <p>
+                Don’t have an account?{" "}
+                <span onClick={() => navigate("/register")}>Register</span>
+              </p>
 
-            {/* FORGOT PASSWORD */}
-            <p className="login-link">
-              Forgot Password?{" "}
-              <span
-                onClick={() =>
-                  navigate("/forgot-password")
-                }
-              >
-                Click Here
-              </span>
-            </p>
-
+              {/* FORGOT PASSWORD */}
+              <p>
+                Forgot Password?{" "}
+                <span onClick={() => navigate("/forgot-password")}>
+                  Click Here
+                </span>
+              </p>
+            </div>
           </div>
-
         </div>
-
       </div>
-
     </div>
   );
 }
