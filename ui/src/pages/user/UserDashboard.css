@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.user-dashboard {
+  background-color: red;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.user-sidebar {
+  background-color: blueviolet;
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
+.user-content {
+  width: 80%;
+  height: 100%;
+}
+
+.user-siderbar-1 {
+  background-color: #235bbd;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  gap: 12px;
+  height: 100%;
+  width: 100%;
+  padding: 0 20px;
+  border-radius: 4px;
+}
+
+.user-head-logo {
+  /* Remove blue box */
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Fixed logo area */
+  width: 60px;
+  flex-shrink: 0;
+}
+
+.cab-logo {
+  /* Make logo fit properly */
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  /* Remove white background effect */
+  background: transparent;
+}
+
+.head-content {
+  /* Remove blue background */
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2px;
+}
+.head-content h2 {
+   margin: 0;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.head-content p {
+  margin: 0;
+  color: #c7d0df;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.user-siderbar-2 {
+  background-color: chartreuse;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex: 3;
+  gap: 15px;
+  padding: 40px 0;
+  width: 100%;
+}

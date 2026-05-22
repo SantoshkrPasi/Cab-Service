@@ -1,0 +1,61 @@
+.cab-dashboard
+{
+    background-color: rgb(182, 182, 182);
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.cab-dashboard-header
+{
+    background-color: blue;
+    width: 100%;
+    height: 100%;
+    flex: 0.8;
+    padding: 0 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cab-dashboard-header-text{
+  background-color: aqua;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap:14px;
+  padding: 10px;
+}
+
+.cab-dashboard-header-notification{
+    background-color: darkolivegreen;
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    align-items: center;
+}
+
+.cab-dashboard-card
+{
+    background-color: rgb(215, 253, 0);
+    width: 100%;
+    height: 100%;
+    flex: 2;
+}
+
+.cab-dashboard-image
+{
+  background-color: chocolate;
+  height: 100%;
+  width: 100%;
+  flex: 4;
+}
+
+.cab-dashboard-trips
+{
+  background-color: darkgreen;
+  height: 100%;
+  width: 100%;
+  flex: 2;
+}

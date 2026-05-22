@@ -91,8 +91,7 @@ public class TripsServiceImpl implements TripsService{
 	}
 
 	@Override
-	public TripsDto getUserTripDetails(Long userId, TripsDto trips) {
-		Trips tripsReq = modelMapper.map(trips, Trips.class);
+	public TripsDto getUserTripDetails(Long userId) {
 		UserEntity savedUser = userRepository.findById(userId)
 				                             .orElseThrow(()-> new ResourceNotFoundException("User not found with id" + userId));
 		return modelMapper.map(savedUser.getTrips(),TripsDto.class);

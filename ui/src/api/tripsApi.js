@@ -7,5 +7,5 @@ export const bookTrip = (userId, tripData) => {
 
 // GET ALL TRIPS
 export const getTrips = (userId) => {
-  return API.get(`/${userId}/trips-list`);
+  return API.get(`/${userId}/trips`);
 };

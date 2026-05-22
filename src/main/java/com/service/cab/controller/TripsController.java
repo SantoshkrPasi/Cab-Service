@@ -40,8 +40,8 @@ public class TripsController {
     }
 
 	@GetMapping("/{userId}/trips")
-	public ResponseEntity<?> getUserTrips(@PathVariable Long userId, @RequestBody TripsDto tripsRequest) {
-		TripsDto createdTrip = tripsService.getUserTripDetails(userId, tripsRequest);
+	public ResponseEntity<?> getUserTrips(@PathVariable Long userId) {
+		TripsDto createdTrip = tripsService.getUserTripDetails(userId);
 		if(createdTrip != null){
 			return new ResponseEntity<TripsDto>(createdTrip,HttpStatus.OK);
 		}
