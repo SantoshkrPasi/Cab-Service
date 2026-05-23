@@ -1,11 +1,34 @@
-import React from 'react'
+import React from "react";
+import "../style/Card.css";
 
-const Card = () => {
+const Card = ({
+  icon,
+  title,
+  value,
+  subtitle
+}) => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <div className="cab-card">
 
-export default Card
+      <div className="cab-card-icon">
+        <img
+          src={icon}
+          alt={title}
+        />
+      </div>
+
+      <div className="cab-card-content">
+
+        <h4>{title}</h4>
+
+        <h2>{value}</h2>
+
+        <p>{subtitle}</p>
+
+      </div>
+
+    </div>
+  );
+};
+
+export default Card;
