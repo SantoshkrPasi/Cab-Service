@@ -12,8 +12,9 @@ onClick={props.onClick}
     padding: "14px 20px",
     fontSize: "18px",
     fontWeight: "600",
-    color: "white",
-    background: "rgba(247, 0, 0, 0.15)",
+    borderRadius : "15px",
+    color: "rgba(245, 236, 236, 0.96)",
+    backgroundColor: " rgba(36, 88, 141, 1)",
     border: "none",
     backdropFilter: "blur(10px)",
     WebkitBackdropFilter: "blur(10px)",
@@ -24,12 +25,12 @@ onClick={props.onClick}
   onMouseOver={(e) => {
     e.target.style.transform = "scale(1.05)";
     e.target.style.background =
-      "rgba(255,255,255,0.25)";
+      "rgba(36, 88, 141, 1)";
   }}
   onMouseOut={(e) => {
     e.target.style.transform = "scale(1)";
     e.target.style.background =
-      "rgba(255,255,255,0.15)";
+      "rgba(36, 88, 141, 1)";
   }}
 >
   {props.title}
