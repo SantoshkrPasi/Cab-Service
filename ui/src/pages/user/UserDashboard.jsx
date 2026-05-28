@@ -6,7 +6,7 @@ import Dashboard from "./components/Dashboard";
 import BookRide from "./components/BookRide";
 import MyTrips from "./components/MyTrips";
 import Profile from "./components/Profile";
-import Header from "./components/Header/Header";
+import Header from "../../components/common/Header";
 import bell from "../../assets/logo/bell.png";
 import user1 from "../../assets/profile/profile.jpeg";
 import "./UserDashboard.css";

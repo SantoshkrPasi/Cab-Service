@@ -1,224 +1,74 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../../components/common/Header";
+import Dashboard from "./components/Dashboard";
+import Trips from "./components/Trips";
+import Users from "./components/Users";
+import Button from "../../components/common/Button";
+import bell from "../../assets/logo/bell.png";
+import user1 from "../../assets/profile/profile.jpeg";
+import "./style.css"
 import API from "../../api/axios";
 
 function AdminDashboard() {
-
-  const navigate = useNavigate();
-
-  const [users, setUsers] = useState([]);
-  const [trips, setTrips] = useState([]);
-
-  const admin = JSON.parse(localStorage.getItem("admin"));
-  console.log("Admin Data:", admin);
-
-  const totalRevenue = trips.reduce(
-    (sum, trip) => sum + Number(trip.amount || 0),
-    0
-  );
-
-  // Logout
-  const handleLogout = () => {
-    localStorage.removeItem("admin");
-    navigate("/admin/login");
-  };
-
-  // Fetch Users
-  const fetchUsers = async () => {
-    try {
-
-      const response = await API.get("/users");
-
-      setUsers(response.data);
-
-    } catch (err) {
-
-      console.error(err);
-    }
-  };
-
-  // Fetch Trips
-  const fetchTrips = async () => {
-    try {
-      const response = await API.get(`/trips` );
-       console.log( "trips data : " + response.data);
-      setTrips(response.data);
-
-    } catch (err) {
-
-      console.error(err);
-    }
-  };
-
-  useEffect(() => {
-
-    fetchUsers();
-    fetchTrips();
-
-  }, []);
-
+const menuItems = [
+    {
+      name: "Dashboard",
+      subtitle: "Welcome back to dashboard",
+    },
+    {
+      name: "Users",
+      subtitle: "Fill in your trip details",
+    },
+    {
+      name: "Trips",
+      subtitle: "Track your journeys",
+    },
+  ];
+  const [selected, setSelected] = useState("Dashboard");
   return (
-    <div className="dashboard-container">
+    <div className="Admin-dashboard">
+      <div className="Admin-sidebar">
+        <div className="Admin-siderbar-1">
+          <div className="Admin-head">
+            <h1>ADMIN PANEL</h1>
+          </div>
+          <div className="head-content">
+            <h2>Cab GO</h2>
+            <p>Ride Made Easy</p>
+          </div>
+        </div>
+        <div className="Admin-siderbar-2">
+          {menuItems.map((item, index) => (
+            <Button
+              key={index}
+              title={item.name}
+              onClick={() => setSelected(item.name)}
+            />
+          ))}
+          <div className="Admin-logout">
+            <button>Logout</button>
+          </div>
+        </div>
+      </div>
+      <div className="Admin-content">
+        <Header
+          title={menuItems.find((item) => item.name === selected)?.name}
+          subtitle={menuItems.find((item) => item.name === selected)?.subtitle}
+          bellImage={bell}
+          profileImage={user1}
+          notificationCount={3}
+        />
+        {selected === "Dashboard" && <Dashboard />}
 
-      {/* Sidebar */}
-      <div className="sidebar">
+        {selected === "Users" && <Users />}
 
-        <h2 className="logo">
-            Menu
-        </h2>
-
-        <ul>
-
-          <li>
-            Dashboard
-          </li>
-
-          <li>
-            Manage Users
-          </li>
-
-          <li>
-            Manage Trips
-          </li>
-
-          <li>
-            Bookings
-          </li>
-
-          <li onClick={handleLogout}>
-            Logout
-          </li>
-
-        </ul>
+        {selected === "Trips" && <Trips/>}
 
       </div>
-
-      {/* Main Content */}
-      <div className="main-content">
-
-        {/* Navbar */}
-        <div className="navbar">
-
-          <h2>
-            Admin Dashboard
-          </h2>
-
-          <div className="admin-info">
-
-            Welcome,{" "}
-
-            {admin?.firstName || "Admin"}
-
-          </div>
-
-        </div>
-
-        {/* Cards */}
-        <div className="cards-container">
-
-          <div className="card">
-
-            <h3>Total Users</h3>
-
-            <p>{users.length}</p>
-
-          </div>
-
-          <div className="card">
-
-            <h3>Total Trips</h3>
-
-            <p>{trips.length}</p>
-
-          </div>
-
-          <div className="card">
-            <h3>Total Revenue</h3>
-         <p> ₹{totalRevenue}</p>
-          </div>
-        </div>
-
-        {/* Users Table */}
-        <div className="table-section">
-
-          <h3>Users List</h3>
-
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-
-            <tbody>
-
-              {users.map((user) => (
-
-                <tr key={user.id}>
-
-                  <td>
-                    {user.firstName} {user.lastName}
-                  </td>
-
-                  <td>{user.email}</td>
-
-                </tr>
-
-              ))}
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-        {/* Trips Table */}
-        <div className="table-section">
-
-          <h3>Trips List</h3>
-
-          <table>
-
-            <thead>
-
-              <tr>
-
-
-                <th>Source</th>
-                <th>Destination</th>
-                <th>Fare</th>
-
-              </tr>
-
-            </thead>
-
-            <tbody>
-
-              {trips.map((trip) => (
-
-                <tr key={trip.id}>
-
-                  <td>{trip.origin}</td>
-
-                  <td>{trip.destination}</td>
-
-                  <td>₹{trip.amount}</td>
-
-                </tr>
-
-              ))}
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
     </div>
   );
+  
 }
 
 export default AdminDashboard;

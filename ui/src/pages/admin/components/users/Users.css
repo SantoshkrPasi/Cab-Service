@@ -1,0 +1,142 @@
+.users-table-container {
+  width: 100%;
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 20px;
+
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.users-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.users-table thead {
+  background: #f8fafc;
+}
+
+.users-table th {
+  padding: 16px;
+
+  text-align: left;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+.users-table td {
+  padding: 16px;
+
+  border-top: 1px solid #e2e8f0;
+
+  font-size: 14px;
+
+  color: #334155;
+}
+
+.users-table tr:hover {
+  background: #f8fafc;
+}
+
+/* ===================== */
+/* Status */
+/* ===================== */
+
+.status {
+  padding: 6px 12px;
+
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.active {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.blocked {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* ===================== */
+/* Actions */
+/* ===================== */
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-buttons button {
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid #e2e8f0;
+
+  background: white;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.3s ease;
+}
+
+.action-buttons button:hover {
+  background: #eff6ff;
+  border-color: #2563eb;
+}
+
+/* ===================== */
+/* Footer */
+/* ===================== */
+
+.table-footer {
+  margin-top: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table-footer p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.pagination {
+  display: flex;
+  gap: 10px;
+}
+
+.pagination button {
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid #e2e8f0;
+
+  background: white;
+
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.active-page {
+  background: #2563eb !important;
+  color: white;
+}
