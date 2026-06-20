@@ -1,5 +1,5 @@
 import { useState } from "react";
-import API from "../../api/axios";
+// import API from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 function ForgotPassword() {
 
@@ -22,57 +22,57 @@ function ForgotPassword() {
   };
 
   // Handle forgot password
-  const handleForgotPassword = async () => {
+  // const handleForgotPassword = async () => {
 
-    // Validation
-    if (
-      !form.email ||
-      !form.password ||
-      !form.confirmPassword
-    ) {
-      alert("Please fill all fields");
-      return;
-    }
+  //   // Validation
+  //   if (
+  //     !form.email ||
+  //     !form.password ||
+  //     !form.confirmPassword
+  //   ) {
+  //     alert("Please fill all fields");
+  //     return;
+  //   }
 
-    // Password match validation
-    if (form.password !== form.confirmPassword) {
-      alert("Passwords do not match ❌");
-      return;
-    }
+  //   // Password match validation
+  //   if (form.password !== form.confirmPassword) {
+  //     alert("Passwords do not match ❌");
+  //     return;
+  //   }
 
-    try {
+  //   try {
 
-      setLoading(true);
+  //     setLoading(true);
 
-      // Backend takes request params
-      const response = await API.post(
-        "/forgot-password",
-        null,
-        {
-          params: {
-            email: form.email,
-            password: form.password,
-          },
-        }
-      );
+  //     // Backend takes request params
+  //     const response = await API.post(
+  //       "/forgot-password",
+  //       null,
+  //       {
+  //         params: {
+  //           email: form.email,
+  //           password: form.password,
+  //         },
+  //       }
+  //     );
 
-      alert(response.data);
+  //     alert(response.data);
 
-      navigate("/login");
+  //     navigate("/login");
 
-    } catch (err) {
+  //   } catch (err) {
 
-      console.error(err);
+  //     console.error(err);
 
-      alert(
-        err?.response?.data ||
-        "Password change failed ❌"
-      );
+  //     alert(
+  //       err?.response?.data ||
+  //       "Password change failed ❌"
+  //     );
 
-    } finally {
-      setLoading(false);
-    }
-  };
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="forgotpassword-container">

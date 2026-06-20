@@ -1,6 +1,6 @@
-import { useState , useEffect} from "react";
-import API from "../../api/axios";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { loginUser } from "./service/UserService";
 import Img1 from "../../assets/userlogin/img_1.png";
 import Img2 from "../../assets/userlogin/img_2.png";
 import Img3 from "../../assets/userlogin/img.png";
@@ -23,36 +23,30 @@ function Login() {
   };
 
   const [loading, setLoading] = useState(false);
-  // Handle login
-  const handleLogin = async () => {
-    // Validation
-    if (!form.email || !form.password) {
-      alert("Please fill all fields");
-      return;
-    }
-
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setMessage("");
+  setError("");
     try {
-      setLoading(true);
-
-      const response = await API.post("/login", form);
-
-      // Save userId
+      const response = await loginUser(form);
+      setError("");
+      setMessage(response.data.message);
       localStorage.setItem("userId", response.data.userId);
-
-      alert(response.data.message || "Login Successful ✅");
-
-      // Navigate to dashboard
-      navigate("/dashboard");
-    } catch (err) {
-      console.error(err);
-
-      alert(err?.response?.data || "Login failed ❌");
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1500);
+    } catch (error) {
+      setMessage("");
+      setError("Invalid Email or Password");
     } finally {
       setLoading(false);
     }
   };
 
-   const slides = [
+  const slides = [
     {
       image: Img1,
       welcome: "WELCOME TO TAXI SERVICE",
@@ -78,19 +72,12 @@ function Login() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-
     const interval = setInterval(() => {
-
-      setCurrentIndex((prev) =>
-        prev === slides.length - 1 ? 0 : prev + 1
-      );
-
+      setCurrentIndex((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
     }, 7000);
 
     return () => clearInterval(interval);
-
   }, []);
-
 
   return (
     <div
@@ -102,16 +89,12 @@ function Login() {
       {/* CONTENT */}
       <div className="login-content">
         {/* LEFT SECTION */}
-        <div  key={currentIndex} className="left-section">
+        <div key={currentIndex} className="left-section">
           <p className="welcome-text">{slides[currentIndex].welcome}</p>
 
-          <h1>
-            {slides[currentIndex].title}
-          </h1>
+          <h1>{slides[currentIndex].title}</h1>
 
-          <p className="description">
-             {slides[currentIndex].description}
-          </p>
+          <p className="description">{slides[currentIndex].description}</p>
         </div>
 
         {/* RIGHT SECTION */}
@@ -137,8 +120,34 @@ function Login() {
               onChange={handleChange}
             />
 
+            {/* SUCCESS MESSAGE */}
+            {message && (
+              <p
+                style={{
+                  color: "green",
+                  textAlign: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                {message}
+              </p>
+            )}
+
+            {/* ERROR MESSAGE */}
+            {error && (
+              <p
+                style={{
+                  color: "red",
+                  textAlign: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                {error}
+              </p>
+            )}
+
             {/* LOGIN BUTTON */}
-            <button onClick={handleLogin} disabled={loading}>
+            <button onClick={handleLogin} disabled={loading || !form.email || !form.password}>
               {loading ? "Logging in..." : "Login"}
             </button>
 

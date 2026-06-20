@@ -8,7 +8,7 @@ import Button from "../../components/common/Button";
 import bell from "../../assets/logo/bell.png";
 import user1 from "../../assets/profile/profile.jpeg";
 import "./style.css"
-import API from "../../api/axios";
+// import API from "../../api/axios";
 
 function AdminDashboard() {
 const menuItems = [

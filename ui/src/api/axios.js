@@ -1,7 +1,12 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: "http://localhost:8091", //Spring Boot URL
+const UserAPI = axios.create({
+  baseURL: "http://localhost:8091/users", //Spring Boot URL
 });
 
-export default API;
+const AdminAPI = axios.create({
+ baseURL: "http://localhost:8091/admin", //Spring Boot URL
+});
+
+
+export { UserAPI, AdminAPI };

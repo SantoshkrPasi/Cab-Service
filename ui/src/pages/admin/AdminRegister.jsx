@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../../api/axios";
+// import API from "../../api/axios";
 import Img from "../../assets/adminRegister/img.png";
 import "../../styles/style.css";
 
@@ -28,42 +28,42 @@ function AdminRegister() {
   };
 
   // Handle Register
-  const handleRegister = async () => {
-    // Validation
-    if (
-      !form.firstName ||
-      !form.lastName ||
-      !form.email ||
-      !form.mobileNo ||
-      !form.gender ||
-      !form.password ||
-      !form.adminCode
-    ) {
-      alert("Please fill all fields");
-      return;
-    }
+  // const handleRegister = async () => {
+  //   // Validation
+  //   if (
+  //     !form.firstName ||
+  //     !form.lastName ||
+  //     !form.email ||
+  //     !form.mobileNo ||
+  //     !form.gender ||
+  //     !form.password ||
+  //     !form.adminCode
+  //   ) {
+  //     alert("Please fill all fields");
+  //     return;
+  //   }
 
-    try {
-      setLoading(true);
+  //   try {
+  //     setLoading(true);
 
-      const response = await API.post("/admin/register", form);
+  //     const response = await API.post("/admin/register", form);
 
-      alert(response.data || "Admin Registered Successfully ✅");
+  //     alert(response.data || "Admin Registered Successfully ✅");
 
-      // Redirect to Admin Login
-      navigate("/admin/login");
-    } catch (err) {
-      console.error(err);
+  //     // Redirect to Admin Login
+  //     navigate("/admin/login");
+  //   } catch (err) {
+  //     console.error(err);
 
-      if (err.response?.data) {
-        alert(err.response.data);
-      } else {
-        alert("Admin Registration Failed ❌");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     if (err.response?.data) {
+  //       alert(err.response.data);
+  //     } else {
+  //       alert("Admin Registration Failed ❌");
+  //     }
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div

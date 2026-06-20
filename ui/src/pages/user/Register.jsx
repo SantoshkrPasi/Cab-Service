@@ -1,13 +1,14 @@
 import { useState } from "react";
-import API from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 import Img from "../../assets/userRegister/img.png";
+import { registerUser } from "./service/UserService";
 import "../../styles/style.css";
 
 function Register() {
   const navigate = useNavigate();
 
-  const [form, setForm] = useState({
+  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -16,42 +17,33 @@ function Register() {
     password: "",
   });
 
-  const [loading, setLoading] = useState(false);
-
-  // Handle input change
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
   };
-
-  // Handle register
-  const handleRegister = async () => {
-    // Basic validation
-    if (
-      !form.firstName ||
-      !form.lastName ||
-      !form.email ||
-      !form.mobileNo ||
-      !form.gender ||
-      !form.password
-    ) {
-      alert("Please fill all fields");
-      return;
-    }
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
     try {
-      setLoading(true);
-      await API.post("/register", form);
-      alert("Registered successfully ✅");
+      const response = await registerUser(formData);
+      console.log(response.data);
 
-      // Redirect to login
+      alert(response.data);
+
+      // Redirect to Login Page
       navigate("/login");
-    } catch (err) {
-      console.error(err);
-      alert("Registration failed ❌");
-    } finally {
-      setLoading(false);
+
+    } catch (error) {
+      console.error(error);
+
+      alert(
+        error.response?.data || "Registration Failed"
+      );
     }
   };
+  
 
   return (
     <div
@@ -114,7 +106,7 @@ function Register() {
               onChange={handleChange}
             />
 
-            <button onClick={handleRegister} disabled={loading}>
+            <button onClick={handleSubmit} disabled={loading}>
               {loading ? "Registering..." : "Register"}
             </button>
 

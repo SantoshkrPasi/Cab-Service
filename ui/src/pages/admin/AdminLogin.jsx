@@ -1,6 +1,6 @@
 import { useState ,useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import API from "../../api/axios";
+// import API from "../../api/axios";
 import Img1 from "../../assets/adminlogin/img_1.png";
 import Img2 from "../../assets/adminlogin/img_2.png";
 import Img3 from "../../assets/adminlogin/img.png";
@@ -25,34 +25,34 @@ function AdminLogin() {
   };
 
   // Handle Login
-  const handleLogin = async () => {
-    // Validation
-    if (!form.email || !form.password) {
-      alert("Please fill all fields");
+  // const handleLogin = async () => {
+  //   // Validation
+  //   if (!form.email || !form.password) {
+  //     alert("Please fill all fields");
 
-      return;
-    }
+  //     return;
+  //   }
 
-    try {
-      setLoading(true);
+  //   try {
+  //     setLoading(true);
 
-      const response = await API.post("/admin/login", form);
+  //     const response = await API.post("/admin/login", form);
 
-      // Save Admin Data
-      localStorage.setItem("admin", JSON.stringify(response.data));
+  //     // Save Admin Data
+  //     localStorage.setItem("admin", JSON.stringify(response.data));
 
-      alert(response.data || "Admin Login Successful ✅");
+  //     alert(response.data || "Admin Login Successful ✅");
 
-      // Redirect to Admin Dashboard
-      navigate("/admin/dashboard");
-    } catch (err) {
-      console.error(err);
+  //     // Redirect to Admin Dashboard
+  //     navigate("/admin/dashboard");
+  //   } catch (err) {
+  //     console.error(err);
 
-      alert(err?.response?.data || "Admin Login Failed ❌");
-    } finally {
-      setLoading(false);
-    }
-  };
+  //     alert(err?.response?.data || "Admin Login Failed ❌");
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const slides = [
     {
